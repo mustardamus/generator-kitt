@@ -6,5 +6,17 @@ module.exports = yeoman.generators.Base.extend
     yeoman.generators.Base.apply @, arguments
 
   prompting: ->
-    @prompt prompts, (answers) ->
-      console.log answers
+    done = @async()
+
+    @prompt prompts, (answers) =>
+      @config.answers = answers
+      done()
+
+  install:
+    installBower: ->
+      done = @async()
+      @bowerInstall @config.answers.toolsClient, { 'save': true }, done
+
+    installNpm: ->
+      done = @async()
+      @npmInstall @config.answers.toolsServer, { 'save': true }, done

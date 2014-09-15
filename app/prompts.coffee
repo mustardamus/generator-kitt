@@ -9,7 +9,7 @@ module.exports = [
   }
   {
     type:    'checkbox'
-    name:    'tools-client'
+    name:    'toolsClient'
     message: 'Select the Client-side tools you would like to use'
     choices: [
       { checked: true, value: 'zepto', name: 'Zepto - lightweight jQuery alternative (http://zeptojs.com/)' }
@@ -19,12 +19,12 @@ module.exports = [
       { checked: true, value: 'backbone', name: 'Backbone - JS framework, with Lodash or Underscore (http://backbonejs.com/)' }
       { checked: false, value: 'Backbone.dualStorage', name: 'Backbone.dualStorage - REST and localStorage Backbone adapter (https://github.com/nilbus/Backbone.dualStorage)' }
       { checked: true, value: 'handlebars.js', name: 'Handlebars - JS Templating System (http://handlebarsjs.com/)' }
-      { checked: false, value: 'modernizr', name: 'Modernizr - HTML5 and CSS3 features detection (http://modernizr.com/)' }
+      { checked: false, value: 'modernizr', name: 'Modernizr - HTML5 and CSS3 features detection (http://modernizr.com/y)' }
     ]
   }
   {
     type:    'checkbox'
-    name:    'tools-server'
+    name:    'toolsServer'
     message: 'Select the Server-side tools you would like to use'
     choices: [
       { checked: true, value: 'lodash', name: 'Lodash - JS Helpers, alternative to Underscore (http://lodash.com/)' }
