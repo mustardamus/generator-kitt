@@ -1,0 +1,16 @@
+{
+  "name": "generator-kitt",
+  "version": "0.1.0",
+  "description": "Generator for various stages of a shiny modern web development environment",
+  "main": "app/index.js",
+  "scripts": {},
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "author": "Sebastian Senf <@mustardamus>",
+  "license": "MIT",
+  "dependencies": {
+    "coffee-script": "^1.8.0",
+    "yeoman-generator": "^0.17.6"
+  }
+}
