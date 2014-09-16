@@ -1,0 +1,21 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server/main.coffee",
+  "scripts": {
+    "start": "./node_modules/coffee-script/bin/coffee server/main.coffee",
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Sebastian Senf",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}
