@@ -1,11 +1,9 @@
 yeoman       = require('yeoman-generator')
 prompts      = require('./prompts')
 dependencies = require('./dependencies')
+templates    = require('./templates')
 
 module.exports = yeoman.generators.Base.extend
-  constructor: ->
-    yeoman.generators.Base.apply @, arguments
-
   prompting: ->
     done = @async()
 
@@ -15,17 +13,26 @@ module.exports = yeoman.generators.Base.extend
 
   writing:
     copyBase: ->
-      @src.copy '_package.json', 'package.json'
+      files = templates.compile(templates.baseTemplates, @config.answers)
+
+      for file in files
+        @dest.write file.fileOut, file.content
 
   install:
     installBower: ->
+      return
       done = @async()
       @bowerInstall @config.answers.toolsClient, { 'save': true }, done
 
     installGulp: ->
-      done = @async()
-      @npmInstall dependencies.getGulpDependencies(), { 'save-dev': true }, done
+      return
+      done      = @async()
+      gulpDeps  = dependencies.getGulpDependencies()
+      otherDeps = dependencies.otherNpmDependencies
+
+      @npmInstall gulpDeps.concat(otherDeps), { 'save-dev': true }, done
 
     installNpm: ->
+      return
       done = @async()
       @npmInstall @config.answers.toolsServer, { 'save': true }, done

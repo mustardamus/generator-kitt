@@ -4,8 +4,25 @@ module.exports = [
   {
     type:    'input'
     name:    'name'
-    message: 'Name of the app (will be used as namespace)'
     default: 'app'
+    message: 'Name of the app (will be used as namespace)'
+  }
+  {
+    type:    'input'
+    name:    'description'
+    message: 'Short description about the app'
+  }
+  {
+    type:    'input'
+    name:    'author'
+    default: 'Sebastian Senf (me@akrasia.me)'
+    message: 'Who will write a magnificant piece of hackish code'
+  }
+  {
+    type:    'input'
+    name:    'license'
+    default: 'MIT'
+    message: 'What license will the code have'
   }
   {
     type:    'checkbox'

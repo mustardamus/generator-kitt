@@ -1,11 +1,7 @@
 fs = require('fs')
 
 module.exports =
-  # this function reads all dependencies declared in the gulpfile
-  # they must be in the format of (note the single '). hackery at its finest.
-  #   var gulp = require('gulp');
-
-  getGulpDependencies: ->
+  getGulpDependencies: -> # parse gulpfile for dependencies
     content = fs.readFileSync "#{__dirname}/templates/gulpfile.js", 'utf-8'
     lines   = content.split('\n')
     deps    = []
@@ -18,3 +14,7 @@ module.exports =
         deps.push dep if dep.length
 
     deps
+
+  otherNpmDependencies: [ # dependencies needed but not required in gulpfile
+    'coffee-script', 'coffeeify'
+  ]

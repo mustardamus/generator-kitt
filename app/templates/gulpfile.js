@@ -9,7 +9,6 @@ var uglify     = require('gulp-uglify');
 var csso       = require('gulp-csso');
 var imagemin   = require('gulp-imagemin');
 var prefix     = require('gulp-autoprefixer');
-var coffeeify  = require('coffeeify');
 
 var serverPort     = 6699;
 var livereloadPort = 36699;
