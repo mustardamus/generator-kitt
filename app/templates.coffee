@@ -10,6 +10,9 @@ module.exports =
     { fileIn: 'gitignore', fileOut: '.gitignore' }
     { fileIn: 'gulpfile.js' } # if no fileOut then use same filename
     { fileIn: 'README.md' }
+    { fileIn: 'client/index.html' }
+    { fileIn: 'client/scripts/main.coffee' }
+    { fileIn: 'client/scripts/vendor.js' }
   ]
 
   compile: (files, config) ->

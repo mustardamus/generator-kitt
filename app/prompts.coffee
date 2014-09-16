@@ -5,7 +5,7 @@ module.exports = [
     type:    'input'
     name:    'name'
     default: 'app'
-    message: 'Name of the app (will be used as namespace)'
+    message: 'Name of the app (will also be used as namespace)'
   }
   {
     type:    'input'

@@ -1,4 +1,5 @@
 yeoman       = require('yeoman-generator')
+_            = require('lodash')
 prompts      = require('./prompts')
 dependencies = require('./dependencies')
 templates    = require('./templates')
@@ -10,6 +11,26 @@ module.exports = yeoman.generators.Base.extend
     @prompt prompts, (answers) =>
       @config.answers = answers
       done()
+
+  configuring: ->
+    @config.answers.client = {}
+
+    for tool in @config.answers.toolsClient
+      @config.answers.client[tool] = true
+
+    if @config.answers.client.jquery and @config.answers.client.zepto
+      @config.answers.client.zepto = null # coose jquery over zepto if both selected
+
+    if !@config.answers.client.jquery and !@config.answers.client.zepto
+      @config.answers.client.nolib = true # if no library is selected set this
+
+    if @config.answers.client.backbone
+      if @config.answers.client.nolib
+        @config.answers.client.zepto = true # cant use backbone without $
+        @config.answers.client.nolib = null
+
+      unless @config.answers.client.lodash
+        @config.answers.client.lodash = true # cant use backbone without _
 
   writing:
     copyBase: ->

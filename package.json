@@ -7,11 +7,12 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "author": "Sebastian Senf <@mustardamus>",
+  "author": "Sebastian Senf (me@akrasia.me)",
   "license": "MIT",
   "dependencies": {
     "coffee-script": "^1.8.0",
     "handlebars": "^2.0.0",
+    "lodash": "^2.4.1",
     "yeoman-generator": "^0.17.6"
   }
 }
