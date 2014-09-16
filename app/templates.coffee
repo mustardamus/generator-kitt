@@ -4,7 +4,12 @@ Handlebars = require('handlebars')
 module.exports =
   baseTemplates: [
     { fileIn: '_package.json', fileOut: 'package.json' }
+    { fileIn: '_bower.json', fileOut: 'bower.json' }
+    { fileIn: 'bowerrc', fileOut: '.bowerrc' }
+    { fileIn: 'editorconfig', fileOut: '.editorconfig' }
+    { fileIn: 'gitignore', fileOut: '.gitignore' }
     { fileIn: 'gulpfile.js' } # if no fileOut then use same filename
+    { fileIn: 'README.md' }
   ]
 
   compile: (files, config) ->

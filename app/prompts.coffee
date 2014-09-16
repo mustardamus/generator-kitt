@@ -16,7 +16,7 @@ module.exports = [
     type:    'input'
     name:    'author'
     default: 'Sebastian Senf (me@akrasia.me)'
-    message: 'Who will write a magnificant piece of hackish code'
+    message: 'Who will write a magnificent piece of hackish code'
   }
   {
     type:    'input'

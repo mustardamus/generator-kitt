@@ -18,14 +18,12 @@ module.exports = yeoman.generators.Base.extend
       for file in files
         @dest.write file.fileOut, file.content
 
-  install:
+  _install: # remove _ to make it work
     installBower: ->
-      return
       done = @async()
       @bowerInstall @config.answers.toolsClient, { 'save': true }, done
 
     installGulp: ->
-      return
       done      = @async()
       gulpDeps  = dependencies.getGulpDependencies()
       otherDeps = dependencies.otherNpmDependencies
@@ -33,6 +31,5 @@ module.exports = yeoman.generators.Base.extend
       @npmInstall gulpDeps.concat(otherDeps), { 'save-dev': true }, done
 
     installNpm: ->
-      return
       done = @async()
       @npmInstall @config.answers.toolsServer, { 'save': true }, done
