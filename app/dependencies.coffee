@@ -1,6 +1,10 @@
 fs = require('fs')
 
 module.exports =
+  scriptVendorMap: # path to bower_components will be built
+    'jquery':     'jquery/dist/jquery.js'
+    'foundation': 'foundation/js/foundation.js'
+    
   getGulpDependencies: -> # parse gulpfile for dependencies
     content = fs.readFileSync "#{__dirname}/templates/gulpfile.js", 'utf-8'
     lines   = content.split('\n')

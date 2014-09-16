@@ -39,6 +39,15 @@ module.exports = yeoman.generators.Base.extend
       for file in files
         @dest.write file.fileOut, file.content
 
+    buildScriptVendor: ->
+      content = []
+
+      for name, path of dependencies.scriptVendorMap
+        if _.indexOf(@config.answers.toolsClient, name) isnt -1
+          content.push "//= require ../bower_components/#{path}"
+
+      @dest.write 'client/scripts/vendor.js', content.join('\n')
+
   _install: # remove _ to make it work
     installBower: ->
       done = @async()

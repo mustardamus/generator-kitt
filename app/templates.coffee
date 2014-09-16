@@ -12,7 +12,6 @@ module.exports =
     { fileIn: 'README.md' }
     { fileIn: 'client/index.html' }
     { fileIn: 'client/scripts/main.coffee' }
-    { fileIn: 'client/scripts/vendor.js' }
   ]
 
   compile: (files, config) ->
