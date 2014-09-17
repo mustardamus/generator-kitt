@@ -36,6 +36,15 @@ module.exports = yeoman.generators.Base.extend
         @config.answers.client.lodash = true # cant use backbone without _
         @config.answers.toolsClient.push 'lodash'
 
+    if client.foundation
+      unless client['normalize-css']
+        @config.answers.client['normalize-css'] = true
+        @config.answers.toolsClient.push 'normalize-css'
+
+      unless client.fastclick
+        @config.answers.client.fastclick = true
+        @config.answers.toolsClient.push 'fastclick'
+
   writing:
     copyBase: ->
       files = templates.compile(templates.baseTemplates, @config.answers)

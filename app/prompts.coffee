@@ -33,6 +33,7 @@ module.exports = [
       { checked: true,  value: 'zepto',                name: 'Zepto.js             - lightweight jQuery alternative (http://zeptojs.com/)' }
       { checked: false, value: 'jquery',               name: 'jQuery               - the one and only (https://jquery.com/)' }
       { checked: true,  value: 'foundation',           name: 'Foundation           - Frontend framework (http://foundation.zurb.com/)' }
+      { checked: true,  value: 'fastclick',            name: 'Fastclick            - Polyfill to remove click delays on browsers with touch UIs (https://github.com/ftlabs/fastclick)' }
       { checked: true,  value: 'lodash',               name: 'Lodash               - JS Helpers, alternative to Underscore (http://lodash.com/)' }
       { checked: true,  value: 'backbone',             name: 'Backbone             - JS framework, with Lodash or Underscore (http://backbonejs.com/)' }
       { checked: false, value: 'Backbone.dualStorage', name: 'Backbone.dualStorage - REST and localStorage Backbone adapter (https://github.com/nilbus/Backbone.dualStorage)' }
