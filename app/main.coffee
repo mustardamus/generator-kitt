@@ -52,6 +52,19 @@ module.exports = yeoman.generators.Base.extend
       for file in files
         @dest.write file.fileOut, file.content
 
+    copyBackbone: ->
+      return unless @config.answers.client.backbone
+
+      root  = 'client/scripts'
+      files = ['routers.coffee', 'routers/app.coffee', 'views/layout/layout.coffee']
+      dirs  = ['collections', 'models', 'templates']
+
+      for file in files
+        @src.copy "#{root}/#{file}", "#{root}/#{file}"
+
+      for dir in dirs
+        @dest.mkdir "#{root}/#{dir}"
+
   install: # remove _ to make it work
     installBower: ->
       done = @async()
