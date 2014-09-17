@@ -52,6 +52,8 @@ module.exports = yeoman.generators.Base.extend
       for file in files
         @dest.write file.fileOut, file.content
 
+      @src.copy 'client/images/favicon.png', 'client/images/favicon.png'
+
     copyBackbone: ->
       return unless @config.answers.client.backbone
 
@@ -70,14 +72,14 @@ module.exports = yeoman.generators.Base.extend
       done = @async()
       @bowerInstall @config.answers.toolsClient, { 'save': true }, done
 
-    _installGulp: ->
+    installGulp: ->
       done      = @async()
       gulpDeps  = dependencies.getGulpDependencies()
       otherDeps = dependencies.otherNpmDependencies
 
       @npmInstall gulpDeps.concat(otherDeps), { 'save-dev': true }, done
 
-    _installNpm: ->
+    installNpm: ->
       done = @async()
       @npmInstall @config.answers.toolsServer, { 'save': true }, done
 
@@ -98,3 +100,6 @@ module.exports = yeoman.generators.Base.extend
 
       for toolDir in deps.unknown
         @log "Cant find the main field in in #{toolDir}/bower.json - Include it by hand, in dependencies.coffee or choose another package"
+
+      @spawnCommand 'gulp', ['build']
+      @log 'Everything done. Go nuts. To start the server do: gulp server'

@@ -65,7 +65,7 @@ gulp.task('copy-images', function() {
 
 gulp.task('build', [
   'copy-html', 'stylus', 'coffee', 'vendor-js',
-  'vendor-css', 'copy-fonts', 'copy-images'
+  'vendor-css', {{#if client.fontawesome}}'copy-fonts', {{/if}}'copy-images'
 ]);
 
 gulp.task('watch', function() {
