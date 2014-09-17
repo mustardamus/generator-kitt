@@ -37,7 +37,7 @@ module.exports = [
       { checked: true,  value: 'backbone',             name: 'Backbone             - JS framework, with Lodash or Underscore (http://backbonejs.com/)' }
       { checked: false, value: 'Backbone.dualStorage', name: 'Backbone.dualStorage - REST and localStorage Backbone adapter (https://github.com/nilbus/Backbone.dualStorage)' }
       { checked: true,  value: 'handlebars',           name: 'Handlebars           - JS Templating System (http://handlebarsjs.com/)' }
-      { checked: false, value: 'modernizr',            name: 'Modernizr            - HTML5 and CSS3 features detection (http://modernizr.com/y)' }
+      { checked: false, value: 'modernizr',            name: 'Modernizr            - HTML5 and CSS3 features detection (http://modernizr.com/)' }
     ]
   }
   {
