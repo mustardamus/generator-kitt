@@ -19,22 +19,18 @@ module.exports = yeoman.generators.Base.extend
     for tool in @config.answers.toolsClient
       @config.answers.client[tool] = client[tool] = true
 
-    if client.jquery and client.zepto # coose jquery over zepto if both selected
-      @config.answers.client.zepto = null
-      @config.answers.toolsClient = _.remove(@config.answers.toolsClient, 'zepto')
-
-    if !client.jquery and !client.zepto
+    unless client.jquery
       @config.answers.client.nolib = true # if no library is selected set this
 
     if client.backbone
       if client.nolib
-        @config.answers.client.zepto = true # cant use backbone without $
+        @config.answers.client.jquery = true # cant use backbone without $
         @config.answers.client.nolib = null
-        @config.answers.toolsClient.push 'zepto'
+        @config.answers.toolsClient.push 'jquery'
 
-      unless client.lodash
-        @config.answers.client.lodash = true # cant use backbone without _
-        @config.answers.toolsClient.push 'lodash'
+      unless client.underscore
+        @config.answers.client.underscore = true # cant use backbone without _
+        @config.answers.toolsClient.push 'underscore'
 
     if client.foundation
       unless client['normalize-css']

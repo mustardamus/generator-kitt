@@ -1,5 +1,6 @@
-fs = require('fs')
-_  = require('lodash')
+fs   = require('fs')
+_    = require('lodash')
+path = require('path')
 
 module.exports =
   getGulpDependencies: -> # parse gulpfile for dependencies
@@ -20,8 +21,8 @@ module.exports =
     'coffee-script', 'coffeeify'
   ]
 
-  bowerDependenciesTable: # if a package has no bower.json, set path with this table
-    'modernizr': 'modernizr.js'
+  bowerDependenciesTable:
+    'modernizr': 'modernizr.js' # has no bower.json
 
   getBowerDependencies: (tools, bowerDir, prefix) ->
     output = { scripts: [], styles: [], missing: [], unknown: [] }
@@ -55,7 +56,7 @@ module.exports =
 
         for file in mainFiles
           extension = _.last(file.split('.')).toLowerCase()
-          filePath  = "#{prefix}/#{tool}/#{file}"
+          filePath  = prefix + path.normalize("/#{tool}/#{file}")
 
           output.scripts.push filePath if extension is 'js'
           output.styles.push filePath if extension is 'css'

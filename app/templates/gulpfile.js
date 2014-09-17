@@ -22,7 +22,7 @@ gulp.task('stylus', function() {
 });
 
 gulp.task('vendor-css', function() {
-  gulp.src(srcDir + 'styles/vendor.css')
+  gulp.src(srcDir + '/styles/vendor.css')
     .pipe(include())
     .pipe(csso())
     .pipe(gulp.dest(destDir + '/styles/'));
