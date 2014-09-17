@@ -4,6 +4,13 @@ This will be the Yeoman Generator for [starterkit](https://github.com/mustardamu
 
 ![](http://www.lydogbillede.dk/wp-content/uploads/2012/10/kitt.jpeg)
 
+## TODO
+
+  - favicon
+  - express server
+  - mongoose
+  - gulp-clean
+
 ## Dependencies management
 
 ### gulpfile.js

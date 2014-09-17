@@ -39,6 +39,7 @@ module.exports = [
       { checked: false, value: 'Backbone.dualStorage', name: 'Backbone.dualStorage - REST and localStorage Backbone adapter (https://github.com/nilbus/Backbone.dualStorage)' }
       { checked: true,  value: 'handlebars',           name: 'Handlebars           - JS Templating System (http://handlebarsjs.com/)' }
       { checked: false, value: 'modernizr',            name: 'Modernizr            - HTML5 and CSS3 features detection (http://modernizr.com/)' }
+      { checked: false, value: 'fontawesome',          name: 'Font-Awesome         - Icon font (https://fortawesome.github.io/Font-Awesome/)' }
     ]
   }
   {
