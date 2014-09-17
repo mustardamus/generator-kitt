@@ -20,20 +20,37 @@ module.exports =
     'coffee-script', 'coffeeify'
   ]
 
+  bowerDependenciesTable: # if a package has no bower.json, set path with this table
+    'modernizr': 'modernizr.js'
+
   getBowerDependencies: (tools, bowerDir, prefix) ->
-    output = { scripts: [], styles: [], unknown: [] }
+    output = { scripts: [], styles: [], missing: [], unknown: [] }
 
     for tool in tools
       toolDir = "#{bowerDir}/#{tool}"
 
-      if fs.existsSync(toolDir)
+      unless fs.existsSync(toolDir)
+        output.missing.push toolDir
+      else
         bowerFile = "#{toolDir}/bower.json"
+        config    = {}
+        valid     = true
 
-        unless fs.existsSync(bowerFile)
-          output.unknown.push toolDir
-          continue
+        if @bowerDependenciesTable[tool]
+          config.main = @bowerDependenciesTable[tool]
+        else
+          unless fs.existsSync(bowerFile)
+            output.missing.push toolDir
+            valid = false
+          else
+            config = JSON.parse(fs.readFileSync(bowerFile, 'utf-8'))
 
-        config    = JSON.parse(fs.readFileSync(bowerFile, 'utf-8'))
+            unless config.main
+              output.unknown.push toolDir
+              valid = false
+
+        continue unless valid
+
         mainFiles = if _.isArray(config.main) then config.main else [config.main]
 
         for file in mainFiles

@@ -71,5 +71,8 @@ module.exports = yeoman.generators.Base.extend
       fileUtil.write "#{rootDir}/scripts/vendor.js", deps.scripts.join('\n')
       fileUtil.write "#{rootDir}/styles/vendor.css", deps.styles.join('\n')
 
+      for toolDir in deps.missing
+        @log "Cant find bower.json in #{toolDir} - Include it by hand, in dependencies.coffee or choose another package"
+
       for toolDir in deps.unknown
-        @log "Cant find bower.json in #{toolDir} - Include it by hand or choose another package"
+        @log "Cant find the main field in in #{toolDir}/bower.json - Include it by hand, in dependencies.coffee or choose another package"
