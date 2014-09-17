@@ -6,7 +6,7 @@ jQuery ->
 Zepto ->
 {{/if}}
 {{#if client.nolib}}
-document.addEventListener 'DOMContentLoaded', ->
+document.addEventListener 'DOMContentLoaded', -> # http://youmightnotneedjquery.com/
 {{/if}}
   {{#if client.foundation}}
   $(document).foundation()

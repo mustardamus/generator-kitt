@@ -3,6 +3,7 @@ _            = require('lodash')
 prompts      = require('./prompts')
 dependencies = require('./dependencies')
 templates    = require('./templates')
+fileUtil     = yeoman.file
 
 module.exports = yeoman.generators.Base.extend
   prompting: ->
@@ -13,24 +14,27 @@ module.exports = yeoman.generators.Base.extend
       done()
 
   configuring: ->
-    @config.answers.client = {}
+    @config.answers.client = client = {}
 
     for tool in @config.answers.toolsClient
-      @config.answers.client[tool] = true
+      @config.answers.client[tool] = client[tool] = true
 
-    if @config.answers.client.jquery and @config.answers.client.zepto
-      @config.answers.client.zepto = null # coose jquery over zepto if both selected
+    if client.jquery and client.zepto # coose jquery over zepto if both selected
+      @config.answers.client.zepto = null
+      @config.answers.toolsClient = _.remove(@config.answers.toolsClient, 'zepto')
 
-    if !@config.answers.client.jquery and !@config.answers.client.zepto
+    if !client.jquery and !client.zepto
       @config.answers.client.nolib = true # if no library is selected set this
 
-    if @config.answers.client.backbone
-      if @config.answers.client.nolib
+    if client.backbone
+      if client.nolib
         @config.answers.client.zepto = true # cant use backbone without $
         @config.answers.client.nolib = null
+        @config.answers.toolsClient.push 'zepto'
 
-      unless @config.answers.client.lodash
+      unless client.lodash
         @config.answers.client.lodash = true # cant use backbone without _
+        @config.answers.toolsClient.push 'lodash'
 
   writing:
     copyBase: ->
@@ -39,27 +43,33 @@ module.exports = yeoman.generators.Base.extend
       for file in files
         @dest.write file.fileOut, file.content
 
-    buildScriptVendor: ->
-      content = []
-
-      for name, path of dependencies.scriptVendorMap
-        if _.indexOf(@config.answers.toolsClient, name) isnt -1
-          content.push "//= require ../bower_components/#{path}"
-
-      @dest.write 'client/scripts/vendor.js', content.join('\n')
-
-  _install: # remove _ to make it work
+  install: # remove _ to make it work
     installBower: ->
       done = @async()
       @bowerInstall @config.answers.toolsClient, { 'save': true }, done
 
-    installGulp: ->
+    _installGulp: ->
       done      = @async()
       gulpDeps  = dependencies.getGulpDependencies()
       otherDeps = dependencies.otherNpmDependencies
 
       @npmInstall gulpDeps.concat(otherDeps), { 'save-dev': true }, done
 
-    installNpm: ->
+    _installNpm: ->
       done = @async()
       @npmInstall @config.answers.toolsServer, { 'save': true }, done
+
+  end:
+    writeBowerVendorFiles: ->
+      tools    = @config.answers.toolsClient
+      rootDir  = "#{@destinationRoot()}/client"
+      bowerDir = "#{rootDir}/bower_components"
+      prefix   = '//= require ../bower_components'
+      deps     = dependencies.getBowerDependencies(tools, bowerDir, prefix)
+
+      # @dest.write does not work here, dunno.
+      fileUtil.write "#{rootDir}/scripts/vendor.js", deps.scripts.join('\n')
+      fileUtil.write "#{rootDir}/styles/vendor.css", deps.styles.join('\n')
+
+      for toolDir in deps.unknown
+        @log "Cant find bower.json in #{toolDir} - Include it by hand or choose another package"

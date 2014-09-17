@@ -1,10 +1,7 @@
 fs = require('fs')
+_  = require('lodash')
 
 module.exports =
-  scriptVendorMap: # path to bower_components will be built
-    'jquery':     'jquery/dist/jquery.js'
-    'foundation': 'foundation/js/foundation.js'
-    
   getGulpDependencies: -> # parse gulpfile for dependencies
     content = fs.readFileSync "#{__dirname}/templates/gulpfile.js", 'utf-8'
     lines   = content.split('\n')
@@ -22,3 +19,28 @@ module.exports =
   otherNpmDependencies: [ # dependencies needed but not required in gulpfile
     'coffee-script', 'coffeeify'
   ]
+
+  getBowerDependencies: (tools, bowerDir, prefix) ->
+    output = { scripts: [], styles: [], unknown: [] }
+
+    for tool in tools
+      toolDir = "#{bowerDir}/#{tool}"
+
+      if fs.existsSync(toolDir)
+        bowerFile = "#{toolDir}/bower.json"
+
+        unless fs.existsSync(bowerFile)
+          output.unknown.push toolDir
+          continue
+
+        config    = JSON.parse(fs.readFileSync(bowerFile, 'utf-8'))
+        mainFiles = if _.isArray(config.main) then config.main else [config.main]
+
+        for file in mainFiles
+          extension = _.last(file.split('.')).toLowerCase()
+          filePath  = "#{prefix}/#{tool}/#{file}"
+
+          output.scripts.push filePath if extension is 'js'
+          output.styles.push filePath if extension is 'css'
+
+    output
