@@ -12,6 +12,11 @@ module.exports =
     { fileIn: 'README.md' }
     { fileIn: 'client/index.html' }
     { fileIn: 'client/scripts/main.coffee' }
+    { fileIn: 'client/styles/main.styl' }
+    { fileIn: 'client/styles/common.styl' }
+    { fileIn: 'client/styles/mobile.styl' }
+    { fileIn: 'client/styles/tablet.styl' }
+    { fileIn: 'client/styles/desktop.styl' }
   ]
 
   compile: (files, config) ->

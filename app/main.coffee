@@ -63,7 +63,7 @@ module.exports = yeoman.generators.Base.extend
       for dir in dirs
         @dest.mkdir "#{root}/#{dir}"
 
-  install: # remove _ to make it work
+  _install: # remove _ to make it work
     installBower: ->
       done = @async()
       @bowerInstall @config.answers.toolsClient, { 'save': true }, done
