@@ -13,33 +13,40 @@ module.exports = yeoman.generators.Base.extend
       @config.answers = answers
       done()
 
-  configuring: ->
-    @config.answers.client = client = {}
+  configuring:
+    configureClient: ->
+      @config.answers.client = client = {}
 
-    for tool in @config.answers.toolsClient
-      @config.answers.client[tool] = client[tool] = true
+      for tool in @config.answers.toolsClient
+        @config.answers.client[tool] = client[tool] = true
 
-    unless client.jquery
-      @config.answers.client.nolib = true # if no library is selected set this
+      unless client.jquery
+        @config.answers.client.nolib = true # if no library is selected set this
 
-    if client.backbone
-      if client.nolib
-        @config.answers.client.jquery = true # cant use backbone without $
-        @config.answers.client.nolib = null
-        @config.answers.toolsClient.push 'jquery'
+      if client.backbone
+        if client.nolib
+          @config.answers.client.jquery = true # cant use backbone without $
+          @config.answers.client.nolib = null
+          @config.answers.toolsClient.push 'jquery'
 
-      unless client.underscore
-        @config.answers.client.underscore = true # cant use backbone without _
-        @config.answers.toolsClient.push 'underscore'
+        unless client.underscore
+          @config.answers.client.underscore = true # cant use backbone without _
+          @config.answers.toolsClient.push 'underscore'
 
-    if client.foundation
-      unless client['normalize-css']
-        @config.answers.client['normalize-css'] = true
-        @config.answers.toolsClient.push 'normalize-css'
+      if client.foundation
+        unless client['normalize-css']
+          @config.answers.client['normalize-css'] = true
+          @config.answers.toolsClient.push 'normalize-css'
 
-      unless client.fastclick
-        @config.answers.client.fastclick = true
-        @config.answers.toolsClient.push 'fastclick'
+        unless client.fastclick
+          @config.answers.client.fastclick = true
+          @config.answers.toolsClient.push 'fastclick'
+
+    configureServer: ->
+      @config.answers.server = server = {}
+
+      for tool in @config.answers.toolsServer
+        @config.answers.server[tool] = server[tool] = true
 
   writing:
     copyBase: ->
@@ -62,6 +69,21 @@ module.exports = yeoman.generators.Base.extend
 
       for dir in dirs
         @dest.mkdir "#{root}/#{dir}"
+
+    copyServer: ->
+      return unless @config.answers.toolsServer.length
+
+      files = templates.compile(templates.serverTemplates, @config.answers)
+
+      for file in files
+        @dest.write file.fileOut, file.content
+
+      if @config.answers.server.express
+        @src.copy 'server/routes/app.coffee', 'server/routes/app.coffee'
+        @src.copy 'server/helpers/app.coffee', 'server/helpers/app.coffee'
+
+      if @config.answers.server.mongoose
+        @src.copy 'server/models/count.coffee', 'server/models/count.coffee'
 
   _install: # remove _ to make it work
     installBower: ->

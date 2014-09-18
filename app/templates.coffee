@@ -19,6 +19,11 @@ module.exports =
     { fileIn: 'client/styles/desktop.styl' }
   ]
 
+  serverTemplates: [
+    { fileIn: 'server/config.coffee' }
+    { fileIn: 'server/main.coffee' }
+  ]
+
   compile: (files, config) ->
     outFiles = []
 
