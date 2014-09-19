@@ -1,17 +1,44 @@
-# KITT
+# KITT Yeoman Generator
 
-This will be the Yeoman Generator for [starterkit](https://github.com/mustardamus/starterkit).
+A sweet and simple web project generator and scaffolder tailored to my current
+flavor of tools. Including Gulp, Browserify, CoffeeScript, Stylus, Foundation,
+Express, Mongoose and other fancy stuff.
 
-![](http://www.lydogbillede.dk/wp-content/uploads/2012/10/kitt.jpeg)
+![Michael says YEAH](https://camo.githubusercontent.com/ccf80af2c8ba0cc071e3e4a10437bb08b811ec21/687474703a2f2f7777772e6c79646f6762696c6c6564652e646b2f77702d636f6e74656e742f75706c6f6164732f323031322f31302f6b6974742e6a706567)
 
-## TODO
+## Installation
 
-  - favicon
-  - express server
-  - mongoose
-  - gulp-clean
+This is a work in progress and is likely to be changing while starting 100 new
+projects. It's currently not published to NPM. You can use it anyway if you
+think this sounds like a environment you'd like to work in.
 
-## Dependencies management
+    git clone git@github.com:mustardamus/generator-kitt.git
+    cd generator-kitt
+    npm link
+
+## Usage
+
+Easy as talking to KITT:
+
+    mkdir project
+    cd project
+    yo kitt
+
+You are then prompted with a couple of questions and can select client- and
+server-side tools you'd like to use.
+
+## Features
+
+### Base Tools
+
+Gulp, Browserify, CoffeeScript and Stylus.
+No matter what additional tools you want, this is the base for all of them.
+
+### Client Tools
+
+### Server Tools
+
+## Extras
 
 ### gulpfile.js
 
