@@ -1,18 +1,19 @@
-var gulp       = require('gulp');
-var stylus     = require('gulp-stylus');
-var webserver  = require('gulp-webserver');
-var browserify = require('gulp-browserify');
-var concat     = require('gulp-concat');
-var include    = require('gulp-include');
-var uglify     = require('gulp-uglify');
-var csso       = require('gulp-csso');
-var imagemin   = require('gulp-imagemin');
-var prefix     = require('gulp-autoprefixer');
+var gulp        = require('gulp');
+var stylus      = require('gulp-stylus');
+var webserver   = require('gulp-webserver');
+var browserify  = require('gulp-browserify');
+var concat      = require('gulp-concat');
+var include     = require('gulp-include');
+var uglify      = require('gulp-uglify');
+var csso        = require('gulp-csso');
+var imagemin    = require('gulp-imagemin');
+var prefix      = require('gulp-autoprefixer');
 var browserSync = require('browser-sync');
 
 var serverPort = 6699;
 var srcDir     = './client';
 var destDir    = './public';
+var reload     = browserSync.reload;
 
 gulp.task('stylus', function() {
   gulp.src(srcDir + '/styles/main.styl')
@@ -69,19 +70,19 @@ gulp.task('build', [
 ]);
 
 gulp.task('watch', function() {
-  gulp.watch(srcDir + '/*.html', ['copy-html', browserSync.reload]);
-  gulp.watch(srcDir + '/styles/**/*.styl', ['stylus', browserSync.reload]);
-  gulp.watch(srcDir + '/styles/vendor.css', ['vendor-css', browserSync.reload]);
-  gulp.watch(srcDir + '/scripts/**/*.coffee', ['coffee', browserSync.reload]);
-  gulp.watch(srcDir + '/scripts/vendor.js', ['vendor-js', browserSync.reload]);
-  gulp.watch(srcDir + '/images/**/*', ['copy-images', browserSync.reload]);
+  gulp.watch(srcDir + '/*.html',              ['copy-html', reload]);
+  gulp.watch(srcDir + '/styles/**/*.styl',    ['stylus', reload]);
+  gulp.watch(srcDir + '/styles/vendor.css',   ['vendor-css', reload]);
+  gulp.watch(srcDir + '/scripts/**/*.coffee', ['coffee', reload]);
+  gulp.watch(srcDir + '/scripts/vendor.js',   ['vendor-js', reload]);
+  gulp.watch(srcDir + '/images/**/*',         ['copy-images', reload]);
 });
 
 gulp.task('server', ['build', 'watch'], function() {
   browserSync({
     server: { baseDir: destDir },
-    port: serverPort,
-    open: false,
+    port:   serverPort,
+    open:   false,
     notify: false
   });
 });
