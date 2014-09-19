@@ -85,7 +85,7 @@ module.exports = yeoman.generators.Base.extend
       if @config.answers.server.mongoose
         @src.copy 'server/models/count.coffee', 'server/models/count.coffee'
 
-  _install: # remove _ to make it work
+  install: # remove _ to make it work
     installBower: ->
       done = @async()
       @bowerInstall @config.answers.toolsClient, { 'save': true }, done
