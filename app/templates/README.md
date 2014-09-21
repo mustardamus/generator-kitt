@@ -102,7 +102,9 @@ Model, Views and Template created if you wish.
 
 {{/if}}
 {{#if server.express}}
-## Add helpers to the Express app
+## Manually
+
+### Add helpers to the Express app
 
   1. Create a file in `./helpers`. The filename will be the namespace of the
   helper functions inside of it.
@@ -113,7 +115,7 @@ Model, Views and Template created if you wish.
   as `helpers._` (`_._`) when passed to the routes.
   {{/if}}
 
-## Add routes to the Express webserver
+### Add routes to the Express webserver
 
   1. Create a file in `./routes`. Filename does not really matter, but it would
   be smart to name it after the resource that it is handling.
@@ -122,14 +124,28 @@ Model, Views and Template created if you wish.
   `config` is the  configuration object from the file `./config.coffee`
   Inside the function, `this` is the reference to the Express app.
 
+### KITT
+
+The above steps are automated by the KITT Yeoman generator.
+
+    yo kitt:create
+
 {{/if}}
 {{#if server.mongoose}}
-## Add models to Mongoose
+## Manually
+
+### Add models to Mongoose
 
   1. Create a file in `./models`. The filename will be the namespace of the
   model declaration.
   2.  The `module.exports` should return a function that accept one argument,
   which is the `helper` object.
   Inside the function, `this` is the reference to the Mongoose object.
+
+### KITT
+
+The above steps are automated by the KITT Yeoman generator.
+
+    yo kitt:create
 
 {{/if}}
