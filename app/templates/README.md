@@ -83,10 +83,22 @@ To configure the express app just edit the file `./server/config.coffee`.
 {{#if client.backbone}}
 ## Add a new resource to the Backbone app
 
+### Manually
+
   1. Create a new router: `./routers/[resourcenName].coffee`
   2. Require the new router in `./routers.coffee`
   3. Win - in the router, include your routes logic, collections, views and
   whatnot.
+
+### KITT
+
+The above steps are automated by the KITT Yeoman generator.
+
+    yo kitt:create
+
+Enter the resource name and you will be prompted with Backbone files you want
+to create. `./routers.coffee` will be automatically extended, Collections,
+Model, Views and Template created if you wish.
 
 {{/if}}
 {{#if server.express}}
@@ -97,7 +109,7 @@ To configure the express app just edit the file `./server/config.coffee`.
   2. Win - when initializing routes the complete helper object, all files
   initialized, will be passed as the second argument.
   {{#if server.lodash}}
-  3. Double Win - Underscore will be added automatically to the helpers object
+  3. Double Win - Lodash will be added automatically to the helpers object
   as `helpers._` (`_._`) when passed to the routes.
   {{/if}}
 
