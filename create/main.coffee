@@ -17,29 +17,54 @@ module.exports = yeoman.generators.Base.extend
         done()
 
     backbone: ->
-      if @dest.exists('client/scripts/collections')
-        done          = @async()
-        resName       = @config.resourceName
-        resNamePlural = @config.resourceNamePlural
+      return unless @dest.exists('client/scripts/collections')
 
-        @prompt
-          type:    'checkbox'
-          name:    'backbone',
-          message: 'Select which Backbone resources you like to create (in client/scripts)'
-          choices: [
-            { checked: true, value: 'route',      name: "Route (routes/#{resNamePlural}.coffee) (+ entry in routes.coffee)" }
-            { checked: true, value: 'collection', name: "Collection (collections/#{resNamePlural}.coffee)" }
-            { checked: true, value: 'model',      name: "Model (models/#{resName}.coffee)" }
-            { checked: true, value: 'viewList',   name: "List View (views/#{resNamePlural}/list.coffee)" }
-            { checked: true, value: 'viewItem',   name: "Item View (views/#{resNamePlural}/item.coffee)" }
-          ]
-        , (answers) =>
-          @config.backbone = {}
+      done          = @async()
+      resName       = @config.resourceName
+      resNamePlural = @config.resourceNamePlural
 
-          for answer in answers.backbone
-            @config.backbone[answer] = true
+      @prompt
+        type:    'checkbox'
+        name:    'backbone',
+        message: 'Select which Backbone resources you like to create (in ./client/scripts)'
+        choices: [
+          { checked: true, value: 'route',      name: "Route (routes/#{resNamePlural}.coffee) (+ entry in routes.coffee)" }
+          { checked: true, value: 'collection', name: "Collection (collections/#{resNamePlural}.coffee)" }
+          { checked: true, value: 'model',      name: "Model (models/#{resName}.coffee)" }
+          { checked: true, value: 'viewList',   name: "List View (views/#{resNamePlural}/list.coffee)" }
+          { checked: true, value: 'viewItem',   name: "Item View (views/#{resNamePlural}/item.coffee)" }
+        ]
+      , (answers) =>
+        @config.backbone = {}
 
-          done()
+        for answer in answers.backbone
+          @config.backbone[answer] = true
+
+        done()
+
+    server: ->
+      return unless @dest.exists('server/helpers')
+
+      done          = @async()
+      resName       = @config.resourceName
+      resNamePlural = @config.resourceNamePlural
+
+      @prompt
+        type:    'checkbox'
+        name:    'server',
+        message: 'Select which Server resources you like to create (in ./server)'
+        choices: [
+          { checked: true, value: 'routes', name: "Routes (routes/#{resNamePlural}.coffee)" }
+          { checked: true, value: 'model',  name: "Model (models/#{resName}.coffee)" }
+          { checked: true, value: 'helper', name: "Helper (helpers/#{resNamePlural}.coffee)" }
+        ]
+      , (answers) =>
+        @config.server = {}
+
+        for answer in answers.server
+          @config.server[answer] = true
+
+        done()
 
   writing:
     backbone: ->
@@ -78,3 +103,21 @@ module.exports = yeoman.generators.Base.extend
         @dest.write "client/scripts/views/#{resNamePlural}/item.coffee", template(@config)
 
         @src.copy 'client/template.coffee', "client/scripts/templates/#{resNamePlural}/item.coffee"
+
+    server: ->
+      return unless @config.server
+
+      resName       = @config.resourceName
+      resNamePlural = @config.resourceNamePlural
+      @config.resourceNameCapitalize = resName.substr(0, 1).toUpperCase() + resName.substr(1)
+
+      if @config.server.routes
+        template = Handlebars.compile(@src.read('server/routes.coffee'))
+        @dest.write "server/routes/#{resNamePlural}.coffee", template(@config)
+
+      if @config.server.model
+        template = Handlebars.compile(@src.read('server/model.coffee'))
+        @dest.write "server/models/#{resName}.coffee", template(@config)
+
+      if @config.server.helper
+        @src.copy 'server/helper.coffee', "server/helpers/#{resNamePlural}.coffee"
