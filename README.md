@@ -40,21 +40,24 @@ No matter what additional tools you want, this is the base for all of them.
 
 ## Extras
 
-### gulpfile.js
+### `gulpfile.js`
 
-The gulpfile.js will be parsed for require()'s. Found dependencies
-will be installed by NPM with --save-dev flag.
+The `gulpfile.js` will be parsed for `require()`'s. Found dependencies will be
+installed by NPM with --save-dev flag.
 
-Additional NPM development dependencies can be added in
-dependencies.coffee (otherNpmDependencies).
+Additional development dependencies that are not required by the `gulpfile.js`,
+can be added in `dependencies.coffee`.
 
-### vendor.js and vendor.css
+### `vendor.js` and `vendor.css`
 
-All Bower dependencies will be installed by the generator. After
-installation, the vendor files (which will be joined by gulp-include)
-will be automatically generated from the bower.json in each installed
-Bower component.
+After all Bower dependencies are installed ans saved to `bower.json`, the
+asset entry points `vendor.js` and `vendor.css` will be automatically built.
 
-If there is no bower.json file, or no main field in the bower.json
-a error is shown. You can then overwrite the path to the main file
-in dependencies.coffee (bowerDependenciesTable).
+Depending on what tools the user selected, the folder `client/bower_components`
+will be scanned for `bower.json` files. If found, it checks for the `main` field
+and if found, include it in `client/scripts/vendor.js` if it is a `.js` file,
+and in `client/styles/vendor.css` if it is a `.css` file.
+
+If there is no `bower.json` file in the dependency, or a `main` field is missing,
+it spits out a error message. You can then find the dependent files and include
+it by hand.
